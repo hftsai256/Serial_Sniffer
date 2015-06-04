@@ -13,7 +13,7 @@ class Sniff:
             line = self.ser.readline()[:-1]
             if store_ts:
                 ts = str(datetime.now()).split('.')[0]
-                print(count + ',' + ts + ',' + line)
+                print(str(count) + ',' + ts + ',' + line)
             else:
                 print(line)
                 
@@ -45,7 +45,7 @@ def main():
     parser.add_argument('-i', '--iter', dest='iter', help='Total number of lines to be printed. \
                         Will print out message endlessly until received keyboard termination signal, \
                         if this argument is not specified.')
-    parser.add_argument('-ts', action='store_true', help='Generate timestamps')
+    parser.add_argument('--ts', action='store_true', help='Generate timestamps')
  
     # parse args
     args = parser.parse_args()
@@ -58,7 +58,7 @@ def main():
     if args.baud:
         baudRate = args.baud
     else:
-        baudRate = 115200
+        baudRate = 9600
         
     if args.iter:
         maxiter = int(args.iter)
@@ -75,7 +75,7 @@ def main():
 
     # sniff sertial traffic
     iter = 0
-    while (sniff.read(iter, ts) and (iter < maxiter)):
+    while (sniff.read(iter, args.ts) and (iter < maxiter)):
         if (args.iter):
             iter += 1
 
