@@ -45,12 +45,11 @@ def main():
     parser.add_argument('-i', '--iter', dest='iter', help='Total number of lines to be printed. \
                         Will print out message endlessly until received keyboard termination signal, \
                         if this argument is not specified.')
-    parser.add_argument('-ts', '--timestamp', dest='store_ts', action='store_true', \
-                        help='Generate timestamps')
+    parser.add_argument('-ts', action='store_true', help='Generate timestamps')
  
     # parse args
     args = parser.parse_args()
-  
+
     if args.port:
         strPort = args.port
     else:
@@ -76,7 +75,7 @@ def main():
 
     # sniff sertial traffic
     iter = 0
-    while (sniff.read(iter, store_ts) and (iter < maxiter)):
+    while (sniff.read(iter, ts) and (iter < maxiter)):
         if (args.iter):
             iter += 1
 
